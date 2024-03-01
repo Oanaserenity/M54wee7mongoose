@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const connection = require("./db/connection");
 
 const bookRouter = require("./books/routes");
+const Book = require("./books/model");
 
 const app = express();
 
@@ -46,13 +47,17 @@ app.get("/getFirstBook", async (request, response) => {
 // https://mongoosejs.com/docs/api/model.html#Model.updateOne()
 app.put("/books", async(request, reponse) => {
   // update a single book's author by title
+  const book = await Book.updateOne({title: request.body.title},{author: request.body.author});
+  response.send({message:"bookupdated",book:book})
 });
 
 // https://mongoosejs.com/docs/guide.html - you'll have to look at the docs and figure this one out!
 app.delete("/books", async(request, response) => {
   //await Book.deleteOne9{});
   const book = await Book.deleteOne({ title: request.body.title});
+  response.send({message:"book deleted",book:book})
 });
+
 
 
 
