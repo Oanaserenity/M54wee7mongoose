@@ -49,7 +49,10 @@ app.put("/books", async(request, reponse) => {
 });
 
 // https://mongoosejs.com/docs/guide.html - you'll have to look at the docs and figure this one out!
-app.delete("/books", (request, response) => {});
+app.delete("/books", async(request, response) => {
+  //await Book.deleteOne9{});
+  const book = await Book.deleteOne({ title: request.body.title});
+});
 
 
 
